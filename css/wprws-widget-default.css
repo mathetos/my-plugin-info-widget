@@ -1,0 +1,101 @@
+.widget.wp_repo_widget {
+  text-align: center;
+  line-height: 0;
+}
+.widget.wp_repo_widget p {
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.widget.wp_repo_widget a.download_link,
+.widget.wp_repo_widget a.translate {
+  text-align: left;
+  display: block;
+  margin: 1rem 0;
+  padding: 1em 1em 1em 60px;
+  border-radius: 6px;
+  background-color: #439e47;
+  width: 100%;
+  color: #fff;
+  line-height: 1.4;
+  position: relative;
+}
+
+.widget.wp_repo_widget a.download_link:hover,
+.widget.wp_repo_widget a.translate:hover
+{
+    background-color: #218834;
+}
+
+.widget.wp_repo_widget a.download_link span,
+.widget.wp_repo_widget a.translate span{
+  position: absolute;
+  background: rgba(255,255,255,0.3);
+  width: 48px;
+  height: 100%;
+  padding: 8px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+}
+
+
+.widget.wp_repo_widget a.badge
+{
+  background: black;
+  width: 100%;
+  display: block;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px;
+  max-height: 65px;
+}
+.widget.wp_repo_widget a.badge:hover
+{
+  opacity: 0.8;
+}
+.widget.wp_repo_widget p.active-installs,
+.widget.wp_repo_widget p.total-rating {
+  font-size: 200%;
+  font-weight: 700;
+  display: inline-block;
+  width: 48%;
+  float: left;
+  margin-left: 0;
+}
+.widget.wp_repo_widget p.total-rating {
+  margin-left: 4%;
+}
+.widget.wp_repo_widget p.active-installs span,
+.widget.wp_repo_widget p.total-rating span {
+  font-size: 50%;
+  display: block;
+}
+.wporg-ratings{
+  display: block;
+  width: 100%;
+  font-size: 200%;
+  margin-bottom: 1.4rem;
+}
+.widget.wp_repo_widget .dashicons {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+/*REVIEWS*/
+.wpwrs_reviews_wrap {
+  margin-top: 1.4rem;
+}
+
+.wpwrs_reviews_wrap h4 {
+  font-size: 200%;
+}
+
+.wpwrs_reviews_wrap .single-review span.dashicons {
+  font-size: 100%;
+  line-height: 0;
+}
