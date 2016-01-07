@@ -87,15 +87,56 @@
 }
 
 /*REVIEWS*/
-.wpwrs_reviews_wrap {
-  margin-top: 1.4rem;
+.reviews_nav {
+  background-color: rgba(0,0,0,0.08);
+  display: block;
+  width: 100%;
+  line-height: 1.4;
+  overflow: hidden;
+  margin-bottom: 1.4rem;
 }
 
-.wpwrs_reviews_wrap h4 {
+.reviews_nav span {
+  width: 50%;
+  cursor: pointer;
+  background-color: rgba(0,0,0,0.08);
+  padding: 6px;
+}
+.reviews_nav span:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+.reviews_nav span.prevArrow {
+  float: left;
+}
+.reviews_nav span.prevArrow:before{
+  content: '<<';
+  display: inline-block;
+  margin-right: 6px;
+}
+.reviews_nav span.nextArrow {
+  float: right;
+}
+.reviews_nav span.nextArrow:after{
+  content: '>>';
+  display: inline-block;
+  margin-right: 6px;
+}
+
+h4.wpwrs_reviews_title {
+  margin-top: 1.4rem;
+  margin-bottom: 0;
   font-size: 200%;
 }
 
 .wpwrs_reviews_wrap .single-review span.dashicons {
   font-size: 100%;
   line-height: 0;
+}
+
+.wpwrs_reviews_wrap {
+	display: none;
+}
+.wpwrs_reviews_wrap .single-review:first-child {
+	display: block;
 }

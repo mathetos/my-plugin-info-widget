@@ -11,20 +11,28 @@ wp_enqueue_script( 'wprws-slick-js', WPRWS_URL . 'vendor/slick/slick.min.js', ''
 
 if (isset($instance['wprws_title']))
  echo $before_title . esc_attr( $instance['wprws_title'] ) . $after_title;
+
+$wprepo = new WP_Repo_Widget;
+$var = $wprepo->variables($instance);
+//var_dump($var);
+
+$slug = $var['slug'];
+
 ?>
 <script>
 jQuery(document).ready(function( $ ) {
   $('.wpwrs_reviews_wrap').slick({
     fade: true,
-    autoPlay: true,
+    autoplay: true,
+	autoplaySpeed: 3500,
+	prevArrow: $('.prevArrow'),
+	nextArrow: $('.nextArrow'),
+	adaptiveHeight: true
   })
 });
 </script>
-<div class="wprws_plugin_data_wrapper">
+<div class="wprws_plugin_data_wrapper plugin-<?php echo $slug; ?>">
   <?php
-    $wprepo = new WP_Repo_Widget;
-    $var = $wprepo->variables($instance);
-    //var_dump($var);
 
     if ( $instance['wprws_installs'] == true ) {
       echo '<p class="active-installs">' . $var['installs'] . '<span>' . __('Active Installs', 'wprepowidget') . '</span></p>';
@@ -58,8 +66,15 @@ jQuery(document).ready(function( $ ) {
     }
     //var_dump($call_api);
 
-    include( WPRWS_PATH . '/inc/reviews-logic.php');
-?>
+    include_once( WPRWS_PATH . '/inc/reviews-logic.php');
+	?>
+	<div class="reviews_nav">
+		<span class="prevArrow"><?php echo __('Previous Review', 'wprepowidget'); ?></span>
+		<span class="nextArrow"><?php echo __('Next Review', 'wprepowidget'); ?></span>
+	</div>
+	<div class="reviews_all">
+		<a href="https://wordpress.org/support/view/plugin-reviews/<?php echo $slug; ?>" target="_blank"><?php echo __('See all reviews', 'wprepowidget'); ?></a>
+	</div>
 
 </div>
 <?php

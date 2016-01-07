@@ -291,21 +291,20 @@ class WP_Repo_Widget extends WP_Widget {
 	 */
 
 	 	// function used to pass widget variables to template functions
-	 	function variables( $instance ) {
-			$slug = $instance['wprws_slug'];
+	 	public function variables( $instance ) {
+			$slug = $this->get_the_slug($instance);
 			$cachedresults = get_transient( 'wp-plugin-repo-data-' . $slug );
 
 			if ( $cachedresults ) {
 				$call_api = $cachedresults;
 				$iscached = 'Not Cached';
 			} else {
-				$wprepowidget = new WP_Repo_Widget();
 				$iscached = 'Results Cached';
-				$call_api = 		$wprepowidget->wprws_callapi($slug=$instance['wprws_slug']);
+				$call_api = $this->wprws_callapi($slug=$instance['wprws_slug']);
 			}
 
  		$var = array(
- 			'slug' => esc_attr( $instance['wprws_slug'] ),
+			'slug' => $this->get_the_slug($instance),
  		  'rating' => $call_api->rating,
  		  'installs' => $call_api->active_installs,
  		  'fivestars' => $call_api->ratings[5],
@@ -315,8 +314,129 @@ class WP_Repo_Widget extends WP_Widget {
  		  'name' => $call_api->name
  		  );
 
- 			return $var;
+		return $var;
  	}
+	
+	public function get_the_slug($instance) {
+		$slug = $instance['wprws_slug'];
+		$cleanslug = esc_attr($slug);
+		return $cleanslug;
+	}
+	
+	/* 
+	 *  Getting the Reviews
+	 */
+	
+	public function wprws_split_reviews($instance) {
+	  // Create DOM from reviews output string
+	  $wprepo = new WP_Repo_Widget;
+	  $xpath = $wprepo->wprws_get_xpath($instance);
+
+	  // Target the class of the reviews element
+	  $reviewclass = './/div[contains(concat(" ", normalize-space(@class), " "), " review ")]';
+
+	  //Begin Review Wrapper Div
+	  ?>
+	  <h4 class="wpwrs_reviews_title">Reviews</h4>
+	  <div class="wpwrs_reviews_wrap" data-slick=\'{"slidesToShow": 1, "slidesToScroll": 1}\'>';
+	  <?php   
+
+	  // Loop through all review elements
+	  // and output the markup accordingly
+
+	  foreach ($xpath->evaluate($reviewclass) as $div) {
+	  $i = 0;
+		// Save each review as an XML instance
+		$raw_review = $div->ownerDocument->saveXML( $div );
+
+		// Grab all "a" elements from each review
+		$linkhrefs = array();
+		$linkTags  = $div->getElementsByTagName( 'a' );
+
+		// Grab the links from each "a" element
+		// and define the Author according to the
+		// text inside the "a" element
+		foreach ( $linkTags as $tag ) {
+		  $linkhrefs[] = $tag->getAttribute( 'href' );
+		  $author = trim( strip_tags( $tag->ownerDocument->saveXML( $tag ) ));
+		}
+
+		// If a reviewer added any links into their
+		// review, it will return as their author link
+		// So we'll grab their author url instead and
+		// trim that to be their name
+		if (strpos($author,'http') !== false) {
+		  $profile = str_replace("//profiles.wordpress.org/", "", $linkhrefs[0]);
+		  $author = $profile;
+		} else {
+		  $author = $author;
+		}
+
+		// Define each element of the review
+		$gettitle = $this->wprws_getElementsByClass($div, 'div', 'review-title-section');
+		$title = substr($gettitle[0]->textContent, 0, -13);
+
+		$getstars = $this->wprws_getElementsByClass($div, 'div', 'star-rating');
+		$stars = $getstars[0]->textContent;
+
+		$getrevdate = $this->wprws_getElementsByClass($div, 'span', 'review-date');
+		$revdate = $getrevdate[0]->textContent;
+
+		$getcontent = $this->wprws_getElementsByClass($div, 'div', 'review-body');
+		$content = $getcontent[0]->textContent;
+		$trimmedcontent = wp_trim_words($content, 50);
+
+		$starnum = substr($stars, 0, -9);
+		$i = 0;
+		if ( $starnum >= 4 ) {
+			include(WPRWS_PATH . 'views/default-reviews.php');
+		}
+		// For testing you can always echo
+		// $raw_review to see the original output
+		// that the plugins_api returns
+		//echo $raw_review;
+
+		}
+		// End Reviews Wrapper Div
+		echo '</div>';
+
+	}
+
+
+	// Gets elements of the review by their class names
+	public function wprws_getElementsByClass($parentNode, $tagName, $className) {
+	  $nodes=array();
+
+	  $childNodeList = $parentNode->getElementsByTagName($tagName);
+
+	  for ($i = 0; $i < $childNodeList->length; $i++) {
+		  $temp = $childNodeList->item($i);
+
+		  if (stripos($temp->getAttribute('class'), $className) !== false) {
+			  $nodes[]=$temp;
+		  }
+	  }
+
+	  return $nodes;
+	}
+	
+	public function wprws_get_xpath($instance) {
+	  $call_api = plugins_api( 'plugin_information',
+		array(
+		  'slug' => $this->get_the_slug($instance),
+		  'fields' => array(
+			'reviews' => true) ) );
+
+			$reviews = $call_api->sections['reviews'];
+
+	  $doc = new DOMDocument();
+	  $doc->loadHTML($reviews);
+	  $doc->saveHTML();
+
+	  $xpath = new DOMXpath($doc);
+
+	  return $xpath;
+	}
 
 } // end of WP_Repo_Widget class
 
