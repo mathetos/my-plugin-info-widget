@@ -10,10 +10,12 @@ It's also fully templateable, so you can customize it however you like.
 ---
 ## Screenshots
 **The Widget Settings**
+
 ![Backend Preview](assets/backend-preview.jpg)
 
 
 **The Frontend**
+
 ![Backend Preview](assets/front-end-preview.jpg)
 
 ---
