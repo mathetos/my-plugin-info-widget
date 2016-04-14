@@ -81,20 +81,20 @@ class WP_Repo_Widget extends WP_Widget {
 		$defaults = array(
 			'wprws_title'			=>	'',
 			'wprws_slug' 			=> 	'hello-dolly',
-			'wprws_customize' => 	'off',
-			'wprws_installs' 	=> 	'on',
-			'wprws_ratings' 	=>	'on',
+			'wprws_customize' 		=> 	'off',
+			'wprws_installs' 		=> 	'on',
+			'wprws_ratings' 		=>	'on',
 			'wprws_stars'			=>	'on',
-			'wprws_fivestars'	=>	'on',
-			'wprws_translate'	=>	'on',
-			'wprws_download'	=>	'on',
+			'wprws_fivestars'		=>	'on',
+			'wprws_translate'		=>	'on',
+			'wprws_download'		=>	'on',
 			'wprws_badge'			=>	'on',
-			'wprws_reviewsenable'		=> 'off',
-			'wprws_reviewnum'				=> 3,
-			'wprws_reviewsstyle'		=> 'Basic',
-			'wprws_authorinfo'			=> 'on',
-			'wprws_authoravatar'		=> 'on',
-			'wprws_reviewlink'			=> 'on'
+			'wprws_reviewsenable'	=> 'off',
+			'wprws_reviewnum'		=> 3,
+			'wprws_reviewsstyle'	=> 'Basic',
+			'wprws_authorinfo'		=> 'on',
+			'wprws_authoravatar'	=> 'on',
+			'wprws_reviewlink'		=> 'on'
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -114,87 +114,126 @@ class WP_Repo_Widget extends WP_Widget {
 		<p>
 		  <label for="<?php echo $this->get_field_id( 'wprws_slug' ); ?>"><strong><?php _e( 'Your Plugin Slug' ); ?></strong>
 		  <input class="widefat" id="<?php echo $this->get_field_id( 'wprws_slug' ); ?>" name="<?php echo $this->get_field_name( 'wprws_slug' ); ?>" type="text" value="<?php echo esc_attr( $slug ); ?>" /></label>
-			<hr />
 		</p>
-		<div class="customize-wrap">
-				<label for="<?php echo $this->get_field_id( 'wprws_customize' ); ?>"><?php echo __('Customize Plugin Elements', 'wprepowidget' ); ?><a class="hint--left" data-hint="<?php echo __('By default, WP Repo Plugin Widget will output &#10;all the data based only on your plugin slug. &#10;If you\'d like to customize which elements &#10;are shown for this widget click here:', 'wprepowidget'); ?>"><span class="dashicons dashicons-info"></span></a></label><input class="checkbox customize" type="checkbox" <?php checked( $instance[ 'wprws_customize' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_customize' ); ?>" name="<?php echo $this->get_field_name( 'wprws_customize' ); ?>" />
-			<fieldset id="wprws_customize">
-				<ul class="wprws_customize">
+
+		<script>
+		 	jQuery(document).ready( function( $ ) {
+				$( 'a[href="#"]' ).click( function(e) {
+					e.preventDefault();
+				} );
+
+
+				$('.wprws-tabs-menu a.stats-click').click(function( event ) { 
+							 			
+				  $('.show-reviews').removeClass('active'); 
+				  $('.wprws-tabs-menu a.reviews-click').removeClass('highlight');
+				  $('.show-stats').addClass('active'); 
+				  $('.wprws-tabs-menu a.stats-click').addClass('highlight');
+				});
+
+
+				$('.wprws-tabs-menu a.reviews-click').click(function( event) {
+		 			
+				  $('.show-stats').removeClass('active'); 
+				  $('.wprws-tabs-menu a.stats-click').removeClass('highlight');
+				  $('.show-reviews').addClass('active');
+				  $('.wprws-tabs-menu a.reviews-click').addClass('highlight');
+				});
+			});
+		</script>
+
+<div id="wprws_tabs_container">
+		<ul id="wprws-tabs-menu" class="wprws-tabs-menu">
+			<li><a href="#" class="stats-click highlight">Stats</a></li>
+			<li><a href="#" class="reviews-click">Reviews</a></li>
+		</ul>
+			
+		<div class="wprws-tab show-stats active">
+			<input class="checkbox customize" type="checkbox" <?php checked( $instance[ 'wprws_customize' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_customize' ); ?>" name="<?php echo $this->get_field_name( 'wprws_customize' ); ?>" />
+			<label for="<?php echo $this->get_field_id( 'wprws_customize' ); ?>"><?php echo __('Enable Plugin Stats?', 'wprepowidget' ); ?>
+				<a class="hint--left" data-hint="<?php echo __('By default, WP Repo Plugin Widget will output &#10;all the data based only on your plugin slug. &#10;If you\'d like to customize which elements &#10;are shown for this widget click here:', 'wprepowidget'); ?>"><span class="dashicons dashicons-info"></span>
+				</a>
+			</label>
+				<ul>
 					<li>
 						<input class="checkbox" type="checkbox" <?php checked( $instance[ 'wprws_installs' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_installs' ); ?>" name="<?php echo $this->get_field_name( 'wprws_installs' ); ?>" />
-	    			<label for="<?php echo $this->get_field_id( 'wprws_installs' ); ?>"><?php echo __('Enable Active Installs', 'wprepowidget' ); ?></label>
+	    				<label for="<?php echo $this->get_field_id( 'wprws_installs' ); ?>"><?php echo __('Enable Active Installs', 'wprepowidget' ); ?></label>
 					</li>
 					<li>
 						<input class="checkbox ratings" type="checkbox" <?php checked( $instance[ 'wprws_ratings' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_ratings' ); ?>" name="<?php echo $this->get_field_name( 'wprws_ratings' ); ?>" />
-	    			<label for="<?php echo $this->get_field_id( 'wprws_ratings' ); ?>"><?php echo __('Enable Overall Rating Score', 'wprepowidget' ); ?></label><a class=" hint--left" data-hint="<?php echo __('e.g. Rated 4.8 out of 5 stars from 25 total ratings.', 'wprepowidget'); ?>" ><span class="dashicons dashicons-info"></span></a>
+	    				<label for="<?php echo $this->get_field_id( 'wprws_ratings' ); ?>"><?php echo __('Enable Overall Rating Score', 'wprepowidget' ); ?></label><a class=" hint--left" data-hint="<?php echo __('e.g. Rated 4.8 out of 5 stars from 25 total ratings.', 'wprepowidget'); ?>" ><span class="dashicons dashicons-info"></span></a>
 					</li>
 					<li>
-							<input class="checkbox stars" type="checkbox" <?php checked( $instance[ 'wprws_stars' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_stars' ); ?>" name="<?php echo $this->get_field_name( 'wprws_stars' ); ?>" />
+						<input class="checkbox stars" type="checkbox" <?php checked( $instance[ 'wprws_stars' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_stars' ); ?>" name="<?php echo $this->get_field_name( 'wprws_stars' ); ?>" />
 	    				<label for="<?php echo $this->get_field_id( 'wprws_stars' ); ?>"><?php echo __('Enable Stars', 'wprepowidget' ); ?></label>
 							<a class=" hint--left" data-hint="<?php echo __('Display stars to represent the total rating for your plugin just like on WP.org.', 'wprepowidget'); ?>" ><span class="dashicons dashicons-info"></span></a>
 					</li>
 					<li>
 						<input class="checkbox fivestars" type="checkbox" <?php checked( $instance[ 'wprws_fivestars' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_fivestars' ); ?>" name="<?php echo $this->get_field_name( 'wprws_fivestars' ); ?>" />
-	    			<label for="<?php echo $this->get_field_id( 'wprws_fivestars' ); ?>"><?php echo __('Show number of 5 star ratings', 'wprepowidget' ); ?></label><a class=" hint--left" data-hint="<?php echo __('e.g. 10 five-star reviews out of 11 total.', 'wprepowidget'); ?>" ><span class="dashicons dashicons-info"></span></a>
+	    				<label for="<?php echo $this->get_field_id( 'wprws_fivestars' ); ?>"><?php echo __('Show number of 5 star ratings', 'wprepowidget' ); ?></label><a class=" hint--left" data-hint="<?php echo __('e.g. 10 five-star reviews out of 11 total.', 'wprepowidget'); ?>" ><span class="dashicons dashicons-info"></span></a>
 					</li>
 					<li>
 						<input class="checkbox download" type="checkbox" <?php checked( $instance[ 'wprws_download' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_download' ); ?>" name="<?php echo $this->get_field_name( 'wprws_download' ); ?>" />
-	    			<label for="<?php echo $this->get_field_id( 'wprws_download' ); ?>"><?php echo __('Display a direct link to your plugins download file', 'wprepowidget' ); ?></label><a class=" hint--left" data-hint="<?php echo __('Visitors will be able to download a zip file &#10;of your plugin directly from your website &#10;rather than going to WP.org.', 'wprepowidget'); ?>" ><span class="dashicons dashicons-info"></span></a>
+	    				<label for="<?php echo $this->get_field_id( 'wprws_download' ); ?>"><?php echo __('Display a direct link to your plugins download file', 'wprepowidget' ); ?></label><a class=" hint--left" data-hint="<?php echo __('Visitors will be able to download a zip file &#10;of your plugin directly from your website &#10;rather than going to WP.org.', 'wprepowidget'); ?>" ><span class="dashicons dashicons-info"></span></a>
 					</li>
 					<li>
 						<input class="checkbox translate" type="checkbox" <?php checked( $instance[ 'wprws_translate' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_translate' ); ?>" name="<?php echo $this->get_field_name( 'wprws_translate' ); ?>" />
-	    			<label for="<?php echo $this->get_field_id( 'wprws_translate' ); ?>"><?php echo __('Link to your plugins Glotpress translation contribution page', 'wprepowidget' ); ?></label>
+	    				<label for="<?php echo $this->get_field_id( 'wprws_translate' ); ?>"><?php echo __('Link to your plugins Glotpress translation contribution page', 'wprepowidget' ); ?></label>
 					</li>
 					<li>
 						<input class="checkbox badge" type="checkbox" <?php checked( $instance[ 'wprws_badge' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_badge' ); ?>" name="<?php echo $this->get_field_name( 'wprws_badge' ); ?>" />
-	    			<label for="<?php echo $this->get_field_id( 'wprws_badge' ); ?>"><?php echo __('Display a "Hosted on WordPress.org" badge that links to your plugin page.', 'wprepowidget' ); ?></label><a class=" hint--left" data-hint="<?php echo __('Special thanks to Stanislav Kromov for his &#10;WordPress Badge generator (Click to visit it).', 'wprepowidget'); ?>" href="https://khromov.github.io/wordpress-badge-generator/" target="_blank"><span class="dashicons dashicons-info"></span></a>
+	    				<label for="<?php echo $this->get_field_id( 'wprws_badge' ); ?>"><?php echo __('Display a "Hosted on WordPress.org" badge that links to your plugin page.', 'wprepowidget' ); ?></label><a class=" hint--left" data-hint="<?php echo __('Special thanks to Stanislav Kromov for his &#10;WordPress Badge generator (Click to visit it).', 'wprepowidget'); ?>" href="https://khromov.github.io/wordpress-badge-generator/" target="_blank"><span class="dashicons dashicons-info"></span></a>
 					</li>
 				</ul>
-			<footer>&nbsp;</footer>
-			</fieldset>
+		</div><!-- end .wprws-tab-content -->
 
-			<fieldset id="wprws_reviews">
+		<div class="wprws-tab show-reviews">
+
+			<input class="checkbox reviewsenable" type="checkbox" <?php checked( $instance[ 'wprws_reviewsenable' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_reviewsenable' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewsenable' ); ?>" />
+			<label for="<?php echo $this->get_field_id( 'wprws_reviewsenable' ); ?>">
+				<?php echo __('Customize Reviews?', 'wprepowidget' ); ?></label>
+				<a class=" hint--left" data-hint="<?php echo __('By default the first 3 5-star reviews &#10;will be output to the page. You can customize &#10;some elements of that here.', 'wprepowidget'); ?>" target="_blank">
+				<span class="dashicons dashicons-info"></span></a>
+			
 				<ul>
 					<li>
-						<input class="checkbox reviewsenable" type="checkbox" <?php checked( $instance[ 'wprws_reviewsenable' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_reviewsenable' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewsenable' ); ?>" />
-	    			<label for="<?php echo $this->get_field_id( 'wprws_reviewsenable' ); ?>"><?php echo __('Customize Reviews?', 'wprepowidget' ); ?><a class=" hint--left" data-hint="<?php echo __('By default the first 3 5-star reviews &#10;will be output to the page. You can customize &#10;some elements of that here.', 'wprepowidget'); ?>" target="_blank"><span class="dashicons dashicons-info"></span></a></label>
-						<ul class="yesenable">
-							<li>
-								<label for="<?php echo $this->get_field_id( 'wprws_reviewnum' ); ?>"><strong><?php _e( 'Number of Reviews to display' ); ?></strong>
-							  <input class="widefat" id="<?php echo $this->get_field_id( 'wprws_reviewnum' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewnum' ); ?>" type="number" value="<?php echo esc_attr( $reviewnum ); ?>" /></label>
-							</li>
-							<li>
-								<label for="<?php echo $this->get_field_name( 'wprws_reviewsstyle' ); ?>"><strong><?php echo __('Chooose review presentation style', 'wprepowidget' ); ?></strong></label><br />
-								<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprws_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewsstyle' ); ?>" value="Basic" <?php echo $instance['wprws_reviewsstyle'] == 'Basic' ? 'checked="checked"' : ''; ?> /><?php echo __('Plain text presentation', 'wprepowidget'); ?><br />
-								<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprws_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewsstyle' ); ?>" value="Fade" <?php echo $instance['wprws_reviewsstyle'] == 'Fade' ? 'checked="checked"' : ''; ?> /><?php echo __('Fade 1 review at a time', 'wprepowidget'); ?><br />
-								<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprws_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewsstyle' ); ?>" value="Slider" <?php echo $instance['wprws_reviewsstyle'] == 'Slider' ? 'checked="checked"' : ''; ?> /><?php echo __('Slider with navigation', 'wprepowidget'); ?><br />
-							</li>
-							<li>
-								<input class="checkbox authorinfo" type="checkbox" <?php checked( $instance[ 'wprws_authorinfo' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_authorinfo' ); ?>" name="<?php echo $this->get_field_name( 'wprws_authorinfo' ); ?>" />
-			    			<label for="<?php echo $this->get_field_id( 'wprws_authorinfo' ); ?>"><?php echo __('Show author info for each review?', 'wprepowidget' ); ?></label>
-							</li>
-							<li>
-								<input class="checkbox authoravatar" type="checkbox" <?php checked( $instance[ 'wprws_authoravatar' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_authoravatar' ); ?>" name="<?php echo $this->get_field_name( 'wprws_authoravatar' ); ?>" />
-			    			<label for="<?php echo $this->get_field_id( 'wprws_authoravatar' ); ?>"><?php echo __('Show author avatar for each review', 'wprepowidget' ); ?></label>
-							</li>
-							<li>
-								<input class="checkbox reviewlink" type="checkbox" <?php checked( $instance[ 'wprws_reviewlink' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_reviewlink' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewlink' ); ?>" />
-			    			<label for="<?php echo $this->get_field_id( 'wprws_reviewlink' ); ?>"><?php echo __('Show a link to each review.', 'wprepowidget' ); ?></label>
-							</li>
-						</ul>
+						<label for="<?php echo $this->get_field_id( 'wprws_reviewnum' ); ?>"><strong><?php _e( 'Number of Reviews to display' ); ?></strong>
+					  	<input class="widefat" id="<?php echo $this->get_field_id( 'wprws_reviewnum' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewnum' ); ?>" type="number" value="<?php echo esc_attr( $reviewnum ); ?>" /></label>
+					</li>
+			
+					<li>
+						<label for="<?php echo $this->get_field_name( 'wprws_reviewsstyle' ); ?>"><strong><?php echo __('Chooose review presentation style', 'wprepowidget' ); ?></strong></label><br />
+						<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprws_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewsstyle' ); ?>" value="Basic" <?php echo $instance['wprws_reviewsstyle'] == 'Basic' ? 'checked="checked"' : ''; ?> /><?php echo __('Plain text presentation', 'wprepowidget'); ?><br />
+						<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprws_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewsstyle' ); ?>" value="Fade" <?php echo $instance['wprws_reviewsstyle'] == 'Fade' ? 'checked="checked"' : ''; ?> /><?php echo __('Fade 1 review at a time', 'wprepowidget'); ?><br />
+						<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprws_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewsstyle' ); ?>" value="Slider" <?php echo $instance['wprws_reviewsstyle'] == 'Slider' ? 'checked="checked"' : ''; ?> /><?php echo __('Slider with navigation', 'wprepowidget'); ?><br />
+					</li>
+					
+					<li>
+						<input class="checkbox authorinfo" type="checkbox" <?php checked( $instance[ 'wprws_authorinfo' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_authorinfo' ); ?>" name="<?php echo $this->get_field_name( 'wprws_authorinfo' ); ?>" />
+	    				<label for="<?php echo $this->get_field_id( 'wprws_authorinfo' ); ?>"><?php echo __('Show author info for each review?', 'wprepowidget' ); ?></label>
+					</li>
+					
+					<li>
+						<input class="checkbox authoravatar" type="checkbox" <?php checked( $instance[ 'wprws_authoravatar' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_authoravatar' ); ?>" name="<?php echo $this->get_field_name( 'wprws_authoravatar' ); ?>" />
+	    				<label for="<?php echo $this->get_field_id( 'wprws_authoravatar' ); ?>"><?php echo __('Show author avatar for each review', 'wprepowidget' ); ?></label>
+					</li>
+					
+					<li>
+						<input class="checkbox reviewlink" type="checkbox" <?php checked( $instance[ 'wprws_reviewlink' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprws_reviewlink' ); ?>" name="<?php echo $this->get_field_name( 'wprws_reviewlink' ); ?>" />
+	    				<label for="<?php echo $this->get_field_id( 'wprws_reviewlink' ); ?>"><?php echo __('Show a link to each review.', 'wprepowidget' ); ?></label>
 					</li>
 				</ul>
-				<footer>&nbsp;</footer>
-			</fieldset>
-		</div>
-		<?php
+		</div><!-- end .wprws-tab-content -->
+	</div><!-- end #wprws_tabs_container -->
+	<?php
 
-		//var_dump($instance);
+	//var_dump($instance);
 	}
 
 	// Saving/Updating the Widget fields
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
+		
 		$instance['wprws_title'] = ( ! empty( $new_instance['wprws_title'] ) ) ? strip_tags( $new_instance['wprws_title'] ) : '';
 
 		$instance['wprws_slug'] = ( ! empty( $new_instance['wprws_slug'] ) ) ?  $new_instance['wprws_slug']  : '';
@@ -335,12 +374,6 @@ class WP_Repo_Widget extends WP_Widget {
 	  // Target the class of the reviews element
 	  $reviewclass = './/div[contains(concat(" ", normalize-space(@class), " "), " review ")]';
 
-	  //Begin Review Wrapper Div
-	  ?>
-	  <h4 class="wpwrs_reviews_title">Reviews</h4>
-	  <div class="wpwrs_reviews_wrap" data-slick=\'{"slidesToShow": 1, "slidesToScroll": 1}\'>';
-	  <?php   
-
 	  // Loop through all review elements
 	  // and output the markup accordingly
 
@@ -397,9 +430,7 @@ class WP_Repo_Widget extends WP_Widget {
 		//echo $raw_review;
 
 		}
-		// End Reviews Wrapper Div
-		echo '</div>';
-
+		
 	}
 
 
@@ -421,16 +452,23 @@ class WP_Repo_Widget extends WP_Widget {
 	}
 	
 	public function wprws_get_xpath($instance) {
-	  $call_api = plugins_api( 'plugin_information',
-		array(
-		  'slug' => $this->get_the_slug($instance),
-		  'fields' => array(
-			'reviews' => true) ) );
+	  	$call_api = plugins_api( 'plugin_information',
+			array(
+			  	'slug' => $this->get_the_slug($instance),
+			  	'fields' => array(
+				'reviews' => true) 
+			) );
 
-			$reviews = $call_api->sections['reviews'];
+	  	$doc = new DOMDocument();
 
-	  $doc = new DOMDocument();
-	  $doc->loadHTML($reviews);
+	  	global $reviews;
+	  	$reviews = $call_api->sections['reviews'];
+	  	
+	  	if (!empty($reviews)) {
+
+	  		$doc->loadHTML($reviews);
+	  	}
+
 	  $doc->saveHTML();
 
 	  $xpath = new DOMXpath($doc);

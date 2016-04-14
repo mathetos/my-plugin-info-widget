@@ -1,80 +1,68 @@
-/* This stylesheet is used to style the admin option form of the widget. */
-.customize-wrap {
-  position: relative;
+#wprws-tabs-menu {
+    border: 2px solid #ddd;
+    border-width: 0 0 2px 0;
+    padding: 6px;
+    line-height: 14px;
+    display: block;
+    margin: 30px 0 20px;
 }
-.customize-wrap label[for*="wprws_customize"],
-.customize-wrap label[for*="wprws_reviewsenable"] {
-  display: block;
-  position: relative;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding: 10px;
-  background: #555;
-  border-radius: 4px 4px 0 0;
-  color: #eee;
+
+#wprws-tabs-menu li {
+    display: inline;
+}
+
+#wprws-tabs-menu li a:hover {
+  color: #333;
+}
+
+a.reviews-click,
+a.stats-click {
+  background: #ddd;
+  border: 2px solid #ddd;
+  border-width: 2px 2px 0;
+  line-height: 14px;
+  font-size: 14px;
+  padding: 6px 12px;
+  text-decoration: none;
+  outline-style:none;
+  box-shadow:none;
   font-style: italic;
+  color: #777;
+}
+
+#wprws-tabs-menu li a:focus {
+  background: white;
+  outline-style:none;
+  box-shadow:none;
+}
+
+.reviews-click.highlight,
+.stats-click.highlight {
+  background: white;
+  outline-style:none;
+  box-shadow:none;
   font-weight: 700;
-}
-input.checkbox.customize,
-input.reviewsenable {
-  position: absolute;
-  left: -9999px;
-  top: 0;
-  right: 0;
+  color: #333;
 }
 
-#wprws_customize,
-ul.yesenable {
-  height: 0;
-  opacity: 0;
-  padding: 10px;
-  background: #ccc;
-  position: relative;
+#wprws_tabs_container .wprws-tab:not(.active) {
+  display:none;
   -webkit-transition: all 600ms ease-in-out;
-  -moz-transition: all 600ms ease-in-out;
-  -ms-transition: all 600ms ease-in-out;
-  -o-transition: all 600ms ease-in-out;
-  transition: all 600ms ease-in-out;
+-moz-transition: all 600ms ease-in-out;
+-ms-transition: all 600ms ease-in-out;
+-o-transition: all 600ms ease-in-out;
+transition: all 600ms ease-in-out;
 }
-
-input.checkbox.customize:checked ~ fieldset#wprws_customize,
-input.reviewsenable:checked ~ ul.yesenable {
-  height: auto;
-  opacity: 1;
-}
-
-ul.wprws_customize {
-  line-height: 1.6;
-  margin: 0 0 25px 0;
-  padding: 0 0 0 25px;
-}
-
-ul.wprws_customize li {
-  text-indent: -25px;
-  line-height: 1.4;
-}
-
-ul.wprws_customize li label {
-  vertical-align: 0;
-  line-height: 1.4;
-  margin: 0;
-  padding: 0;
+.wprws-tab.active{
+  display:block;
+    -webkit-transition: all 600ms ease-in-out;
+-moz-transition: all 600ms ease-in-out;
+-ms-transition: all 600ms ease-in-out;
+-o-transition: all 600ms ease-in-out;
+transition: all 600ms ease-in-out;
 }
 
 
-fieldset#wprws_customize footer,
-fieldset#wprws_reviews footer {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1.5em;
-  background: #555;
-  color: #eee;
-  border-radius: 0 0 4px 4px;
-}
 
 a[class*="hint"] {text-decoration: none; text-indent: 0;}
 a[class*="hint"] span.dashicons {

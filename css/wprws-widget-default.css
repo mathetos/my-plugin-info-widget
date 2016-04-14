@@ -140,3 +140,13 @@ h4.wpwrs_reviews_title {
 .wpwrs_reviews_wrap .single-review:first-child {
 	display: block;
 }
+
+.widget.wp_repo_widget p.no-reviews {
+  margin: 20px 0;
+  font-size: 110%;
+  font-style: italic;
+}
+.widget.wp_repo_widget p.no-reviews a {
+    display: block;
+    font-weight: 700;
+}

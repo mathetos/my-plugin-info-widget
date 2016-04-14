@@ -68,13 +68,6 @@ jQuery(document).ready(function( $ ) {
 
     include_once( WPRWS_PATH . '/inc/reviews-logic.php');
 	?>
-	<div class="reviews_nav">
-		<span class="prevArrow"><?php echo __('Previous Review', 'wprepowidget'); ?></span>
-		<span class="nextArrow"><?php echo __('Next Review', 'wprepowidget'); ?></span>
-	</div>
-	<div class="reviews_all">
-		<a href="https://wordpress.org/support/view/plugin-reviews/<?php echo $slug; ?>" target="_blank"><?php echo __('See all reviews', 'wprepowidget'); ?></a>
-	</div>
 
 </div>
 <?php
