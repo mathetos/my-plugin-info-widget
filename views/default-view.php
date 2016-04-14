@@ -27,7 +27,6 @@ jQuery(document).ready(function( $ ) {
 	autoplaySpeed: 3500,
 	prevArrow: $('.prevArrow'),
 	nextArrow: $('.nextArrow'),
-	adaptiveHeight: true
   })
 });
 </script>
