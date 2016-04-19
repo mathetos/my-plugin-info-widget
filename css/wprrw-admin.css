@@ -1,4 +1,4 @@
-#wprws-tabs-menu {
+#wprrw-tabs-menu {
     border: 2px solid #ddd;
     border-width: 0 0 2px 0;
     padding: 6px;
@@ -7,11 +7,11 @@
     margin: 30px 0 20px;
 }
 
-#wprws-tabs-menu li {
+#wprrw-tabs-menu li {
     display: inline;
 }
 
-#wprws-tabs-menu li a:hover {
+#wprrw-tabs-menu li a:hover {
   color: #333;
 }
 
@@ -30,7 +30,7 @@ a.stats-click {
   color: #777;
 }
 
-#wprws-tabs-menu li a:focus {
+#wprrw-tabs-menu li a:focus {
   background: white;
   outline-style:none;
   box-shadow:none;
@@ -45,7 +45,7 @@ a.stats-click {
   color: #333;
 }
 
-#wprws_tabs_container .wprws-tab:not(.active) {
+#wprrw_tabs_container .wprrw-tab:not(.active) {
   display:none;
   -webkit-transition: all 600ms ease-in-out;
 -moz-transition: all 600ms ease-in-out;
@@ -53,7 +53,7 @@ a.stats-click {
 -o-transition: all 600ms ease-in-out;
 transition: all 600ms ease-in-out;
 }
-.wprws-tab.active{
+.wprrw-tab.active{
   display:block;
     -webkit-transition: all 600ms ease-in-out;
 -moz-transition: all 600ms ease-in-out;

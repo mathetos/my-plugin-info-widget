@@ -1,8 +1,8 @@
-.widget.wp_repo_widget {
+.widget.wp_ratings_widget {
   text-align: center;
   line-height: 0;
 }
-.widget.wp_repo_widget p {
+.widget.wp_ratings_widget p {
   margin-top: 0;
   margin-right: 0;
   margin-left: 0;
@@ -10,8 +10,8 @@
   line-height: 1.4;
 }
 
-.widget.wp_repo_widget a.download_link,
-.widget.wp_repo_widget a.translate {
+.widget.wp_ratings_widget a.download_link,
+.widget.wp_ratings_widget a.translate {
   text-align: left;
   display: block;
   margin: 1rem 0;
@@ -24,14 +24,14 @@
   position: relative;
 }
 
-.widget.wp_repo_widget a.download_link:hover,
-.widget.wp_repo_widget a.translate:hover
+.widget.wp_ratings_widget a.download_link:hover,
+.widget.wp_ratings_widget a.translate:hover
 {
     background-color: #218834;
 }
 
-.widget.wp_repo_widget a.download_link span,
-.widget.wp_repo_widget a.translate span{
+.widget.wp_ratings_widget a.download_link span,
+.widget.wp_ratings_widget a.translate span{
   position: absolute;
   background: rgba(255,255,255,0.3);
   width: 48px;
@@ -43,7 +43,7 @@
 }
 
 
-.widget.wp_repo_widget a.badge
+.widget.wp_ratings_widget a.badge
 {
   background: black;
   width: 100%;
@@ -53,12 +53,12 @@
   padding: 6px;
   max-height: 65px;
 }
-.widget.wp_repo_widget a.badge:hover
+.widget.wp_ratings_widget a.badge:hover
 {
   opacity: 0.8;
 }
-.widget.wp_repo_widget p.active-installs,
-.widget.wp_repo_widget p.total-rating {
+.widget.wp_ratings_widget p.active-installs,
+.widget.wp_ratings_widget p.total-rating {
   font-size: 200%;
   font-weight: 700;
   display: inline-block;
@@ -66,11 +66,11 @@
   float: left;
   margin-left: 0;
 }
-.widget.wp_repo_widget p.total-rating {
+.widget.wp_ratings_widget p.total-rating {
   margin-left: 4%;
 }
-.widget.wp_repo_widget p.active-installs span,
-.widget.wp_repo_widget p.total-rating span {
+.widget.wp_ratings_widget p.active-installs span,
+.widget.wp_ratings_widget p.total-rating span {
   font-size: 50%;
   display: block;
 }
@@ -80,7 +80,7 @@
   font-size: 200%;
   margin-bottom: 1.4rem;
 }
-.widget.wp_repo_widget .dashicons {
+.widget.wp_ratings_widget .dashicons {
   font-size: 30px;
   width: 30px;
   height: 30px;
@@ -123,30 +123,30 @@
   margin-right: 6px;
 }
 
-h4.wpwrs_reviews_title {
+h4.wprrw_reviews_title {
   margin-top: 1.4rem;
   margin-bottom: 0;
   font-size: 200%;
 }
 
-.wpwrs_reviews_wrap .single-review span.dashicons {
+.wprrw_reviews_wrap .single-review span.dashicons {
   font-size: 100%;
   line-height: 0;
 }
 
-.wpwrs_reviews_wrap {
+.wprrw_reviews_wrap {
 	display: none;
 }
-.wpwrs_reviews_wrap .single-review:first-child {
+.wprrw_reviews_wrap .single-review:first-child {
 	display: block;
 }
 
-.widget.wp_repo_widget p.no-reviews {
+.widget.wp_ratings_widget p.no-reviews {
   margin: 20px 0;
   font-size: 110%;
   font-style: italic;
 }
-.widget.wp_repo_widget p.no-reviews a {
+.widget.wp_ratings_widget p.no-reviews a {
     display: block;
     font-weight: 700;
 }
