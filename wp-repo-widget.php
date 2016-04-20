@@ -210,7 +210,7 @@ class WP_Ratings_Widget extends WP_Widget {
 					<input class="checkbox reviewsenable" type="checkbox" <?php checked( $instance[ 'wprrw_reviewsenable' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_reviewsenable' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_reviewsenable' ); ?>" />
 
 					<label for="<?php echo $this->get_field_id( 'wprrw_reviewsenable' ); ?>">
-						<?php echo __('Customize Reviews?', 'wppluginratings' ); ?></label>
+						<?php echo __('Enable Reviews?', 'wppluginratings' ); ?></label>
 					<a class=" hint--left" data-hint="<?php echo __('By default the first 3 5-star reviews &#10;will be output to the page. You can customize &#10;some elements of that here.', 'wppluginratings'); ?>" target="_blank">
 					<span class="dashicons dashicons-info"></span></a>
 					

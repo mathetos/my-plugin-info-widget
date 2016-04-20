@@ -8,7 +8,6 @@
  * @version       1.0
  */
 ?>
-<div class="wprrw_plugin_data_wrapper plugin-<?php echo $slug; ?>">
 
 	<?php 
 	if (!empty($installs)) :
@@ -34,8 +33,8 @@
     <?php 
     if ( $instance['wprrw_download'] == 'on' ) {
 	    echo '<a href="' . $var['download'] . '" class="download_link"><span class="dashicons dashicons-download"></span>';
-      echo sprintf(__('Download "%1$s" here', 'wppluginratings'), $var['name']);
-      echo '</a>';
+      	echo sprintf(__('Download "%1$s" here', 'wppluginratings'), $var['name']);
+      	echo '</a>';
     }
 
     if ( $instance['wprrw_translate'] == 'on') {
@@ -47,11 +46,7 @@
       <img src="https://khromov.github.io/wordpress-badge-generator/images/wp-button-small.png"/>
       </a>';
     }
-    //var_dump($call_api);
-
-    include_once( WPRRW_PATH . '/inc/reviews-logic.php');
+    
 	?>
-
-</div>
 
 <?php 

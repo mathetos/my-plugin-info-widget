@@ -1,27 +1,31 @@
 <?php
 
 /*
- *  Default Widget view
+ *  Widget Template Loader
  */
 
 $wprepo = new WP_Ratings_Widget;
 $var = $wprepo->variables($instance);
-// var_dump($wprepo);
 
+//Enqueue necessary styles and scripts for the widget
 wp_enqueue_style( 'wprrw-default-css', WPRRW_URL . 'css/wprrw-widget-default.css', false );
 wp_enqueue_style( 'wprrw-slick-css', WPRRW_URL . 'vendor/slick/slick.css', false );
 wp_enqueue_style( 'wprrw-slick-theme-css', WPRRW_URL . 'vendor/slick/slick-theme.css', false );
 wp_enqueue_script( 'wprrw-slick-js', WPRRW_URL . 'vendor/slick/slick.min.js', '', '', true );
 
-// Get Title
+// Get the Widget Title
 if (isset($instance['wprrw_title']))
  echo $before_title . esc_attr( $instance['wprrw_title'] ) . $after_title;
 
-// Get Slug
+// Get Plugin Slug
 if (isset($var['slug']))
   $slug = $var['slug'];
+?>
 
-// Get Active Installs
+<div class="wprrw_plugin_data_wrapper plugin-<?php echo $slug; ?>">
+
+<?php 
+// Get the Plugin Active Installs
 if ( !empty( $var['installs'] ) ) {
   
   $installs = $var['installs'];
@@ -31,7 +35,7 @@ if ( !empty( $var['installs'] ) ) {
   $installs = '<p>This Plugin has no Active Installs</p>';
 }
 
-// Get ratings and total reviews
+// Get the Plugin's ratings and total reviews
 if ( !empty( $var['rating'] ) ) {
     $rating = $var['rating']/100*5;
     $ratingtext = sprintf(__(' Stars %1$s out of %2$s total reviews', 'wppluginratings'), '<span>', $var['numratings']) . '</span>';
@@ -40,50 +44,63 @@ if ( !empty( $var['rating'] ) ) {
     $ratingtext = '';
   }
 
-// Get Whether Stars are Enabled or not
+// Get Whether this Widget has enabled Stars or not
 $stars = $instance['wprrw_stars'];
 
+// Loads the Stats Template and then the Reviews template
+// IF they are enabled for this widget.
 
+$parentstatfile = get_template_directory() . '/wprrw/stats-template.php';
+$childstatfile = get_stylesheet_directory() . '/wprrw/stats-template.php';
 
-  //Loads the default template
-  // Looks in Parent, then Child theme directory, then finally plugin
-  if (file_exists( get_template_directory() . '/wprrw/custom-view.php')) {
-    $template = get_template_directory() . '/wprrw/custom-view.php';
-  } elseif(file_exists( get_stylesheet_directory() . '/wprrw/custom-view.php')) {
-    $template = get_stylesheet_directory() . '/wprrw/custom-view.php';
+if ($instance['wprrw_customize'] == 'on') {
+
+  if ( !file_exists( $parentstatfile) && !file_exists($childstatfile)) {
+    $statstemplate = WPRRW_PATH . '/views/stats-template.php';
+  } elseif( file_exists( $childstatfile )) {
+    $statstemplate = $childstatfile;
   } else {
-    $template = WPRRW_PATH . '/views/widget-template.php';
+    $statstemplate = $parentstatfile;
   } 
 
-  include( $template );
+  include( apply_filters('wprrw_stats_template', $statstemplate ) );
+}
 
+if ($instance['wprrw_reviewsenable'] == 'on') {
+  
+  $parentrevfile = get_template_directory() . '/wprrw/reviews-template.php';
+  $childrevfile = get_stylesheet_directory() . '/wprrw/reviews-template.php';
+
+  if ( !file_exists( $parentrevfile) && !file_exists($childrevfile)) {
+    $reviewstemplate = WPRRW_PATH . '/views/reviews-template.php';
+  } elseif( file_exists( $childrevfile )) {
+    $reviewstemplate = $childrevfile;
+  } else {
+    $reviewstemplate = $parentrevfile;
+  } 
+
+  include( apply_filters('wprrw_reviews_template', $reviewstemplate ) );
+}
 ?>
-
-
-<?php
-// End of Wrapper Div
+</div><!-- End widget wrapper div -->
+<?php 
 
 add_action( 'wp_footer', 'print_wprrw_slick_script' );
 
 function print_wprrw_slick_script() {
-  if ( wp_script_is( 'wprrw-slick-js', 'done' ) ) {
-    ob_start(); ?>
-      <script>
-        jQuery(document).ready(function( $ ) {
-          $('.wprrw_reviews_wrap').slick({
-            fade: true,
-            autoplay: true,
-          autoplaySpeed: 3500,
-          prevArrow: $('.prevArrow'),
-          nextArrow: $('.nextArrow'),
-          })
-        });
-      </script>
-    <?php
+  ?>
+  <script>
+    jQuery(document).ready(function( $ ) {
+      $('.wprrw_reviews_wrap').slick({
+        fade: true,
+        autoplay: true,
+      autoplaySpeed: 3500,
+      prevArrow: $('.prevArrow'),
+      nextArrow: $('.nextArrow'),
+      })
+    });
+  </script>
+  <?php
   
-    $output_string = ob_get_contents();
-    ob_end_clean();
-    return $output_string;
-    }
 }
 
