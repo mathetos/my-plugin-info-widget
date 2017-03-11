@@ -1,151 +1,180 @@
 .widget.wp_ratings_widget {
-  text-align: center;
-  line-height: 0;
+    text-align: center;
+    line-height: 0;
 }
+
 .widget.wp_ratings_widget p {
-  margin-top: 0;
-  margin-right: 0;
-  margin-left: 0;
-  margin-bottom: 20px;
-  line-height: 1.4;
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+    line-height: 1.6;
+    font-size: 120%;
 }
 
 .widget.wp_ratings_widget a.download_link,
 .widget.wp_ratings_widget a.translate {
-  text-align: left;
-  display: block;
-  margin: 1rem 0;
-  padding: 1em 1em 1em 60px;
-  border-radius: 6px;
-  background-color: #439e47;
-  width: 100%;
-  color: #fff;
-  line-height: 1.4;
-  position: relative;
+    text-align: left;
+    display: block;
+    margin: 1rem 0;
+    padding: 1em 1em 1em 60px;
+    border-radius: 6px;
+    background-color: #439e47;
+    width: 100%;
+    color: #fff;
+    line-height: 1.4;
+    position: relative;
 }
 
 .widget.wp_ratings_widget a.download_link:hover,
-.widget.wp_ratings_widget a.translate:hover
-{
+.widget.wp_ratings_widget a.translate:hover {
     background-color: #218834;
 }
 
 .widget.wp_ratings_widget a.download_link span,
-.widget.wp_ratings_widget a.translate span{
-  position: absolute;
-  background: rgba(255,255,255,0.3);
-  width: 48px;
-  height: 100%;
-  padding: 8px;
-  top: 0;
-  bottom: 0;
-  left: 0;
+.widget.wp_ratings_widget a.translate span {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    width: 48px;
+    height: 100%;
+    padding: 8px;
+    bottom: 0;
+    left: 0;
+    top: 0;
 }
 
+.widget.wp_ratings_widget a span.dashicons:before {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+}
 
-.widget.wp_ratings_widget a.badge
-{
-  background: black;
-  width: 100%;
-  display: block;
-  text-align: center;
-  border-radius: 6px;
-  padding: 6px;
-  max-height: 65px;
+.widget.wp_ratings_widget a.badge {
+    background: black;
+    width: 100%;
+    display: block;
+    text-align: center;
+    border-radius: 6px;
+    padding: 6px;
+    max-height: 65px;
 }
-.widget.wp_ratings_widget a.badge:hover
-{
-  opacity: 0.8;
+
+.widget.wp_ratings_widget a.badge:hover {
+    opacity: 0.8;
 }
+
 .widget.wp_ratings_widget p.active-installs,
 .widget.wp_ratings_widget p.total-rating {
-  font-size: 200%;
-  font-weight: 700;
-  display: inline-block;
-  width: 48%;
-  float: left;
-  margin-left: 0;
+    font-size: 200%;
+    font-weight: 700;
+    display: inline-block;
+    width: 48%;
+    float: left;
+    margin-left: 0;
 }
+
 .widget.wp_ratings_widget p.total-rating {
-  margin-left: 4%;
+    margin-left: 4%;
 }
+
 .widget.wp_ratings_widget p.active-installs span,
 .widget.wp_ratings_widget p.total-rating span {
-  font-size: 50%;
-  display: block;
+    font-size: 50%;
+    display: block;
 }
-.wporg-ratings{
-  display: block;
-  width: 100%;
-  font-size: 200%;
-  margin-bottom: 1.4rem;
+
+.wporg-ratings {
+    display: block;
+    width: 100%;
+    font-size: 200%;
+    margin-bottom: 1.4rem;
 }
+
 .widget.wp_ratings_widget .dashicons {
-  font-size: 30px;
-  width: 30px;
-  height: 30px;
+    font-size: 30px;
+    width: 30px;
+    height: 30px;
 }
 
 /*REVIEWS*/
 .reviews_nav {
-  background-color: rgba(0,0,0,0.08);
-  display: block;
-  width: 100%;
-  line-height: 1.4;
-  overflow: hidden;
-  margin-bottom: 1.4rem;
+    background-color: rgba(0, 0, 0, 0.08);
+    display: block;
+    width: 100%;
+    line-height: 1.4;
+    overflow: hidden;
+    margin-bottom: 1.4rem;
 }
 
 .reviews_nav span {
-  width: 50%;
-  cursor: pointer;
-  background-color: rgba(0,0,0,0.08);
-  padding: 6px;
+    width: 50%;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.08);
+    padding: 6px;
 }
+
 .reviews_nav span:hover {
-  background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .reviews_nav span.prevArrow {
-  float: left;
+    float: left;
 }
-.reviews_nav span.prevArrow:before{
-  content: '<<';
-  display: inline-block;
-  margin-right: 6px;
+
+.reviews_nav span.prevArrow:before {
+    content: '<<';
+    display: inline-block;
+    margin-right: 6px;
 }
+
 .reviews_nav span.nextArrow {
-  float: right;
+    float: right;
 }
-.reviews_nav span.nextArrow:after{
-  content: '>>';
-  display: inline-block;
-  margin-right: 6px;
+
+.reviews_nav span.nextArrow:after {
+    content: '>>';
+    display: inline-block;
+    margin-right: 6px;
 }
 
 h4.wprrw_reviews_title {
-  margin-top: 1.4rem;
-  margin-bottom: 0;
-  font-size: 200%;
+    margin-top: 1.4rem;
+    margin-bottom: 0;
+    font-size: 200%;
 }
 
-.wprrw_reviews_wrap .single-review span.dashicons {
-  font-size: 100%;
-  line-height: 0;
+.wprrw_reviews_wrap .single-review header h3 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.wprrw_reviews_wrap .single-review span {
+    display: inline-block;
+    line-height: 2;
+    font-size: 100%;
+}
+
+.wprrw_reviews_wrap .single-review span i.dashicons {
+    font-size: 140%;
+    line-height: 1.4;
 }
 
 .wprrw_reviews_wrap {
-	display: none;
+    display: none;
 }
+
 .wprrw_reviews_wrap .single-review:first-child {
-	display: block;
+    display: block;
 }
 
 .widget.wp_ratings_widget p.no-reviews {
-  margin: 20px 0;
-  font-size: 110%;
-  font-style: italic;
+    margin: 20px 0;
+    font-size: 110%;
+    font-style: italic;
 }
+
 .widget.wp_ratings_widget p.no-reviews a {
     display: block;
     font-weight: 700;

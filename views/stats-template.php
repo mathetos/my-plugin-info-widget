@@ -7,46 +7,53 @@
  * @package       WPRRW/Templates
  * @version       1.0
  */
-?>
 
-	<?php 
-	if (!empty($installs)) :
-		echo '<p class="active-installs">' . $installs . '<span>' . __('Active Installs', 'wppluginratings') . '</span></p>'; 
+	if ( !empty($installs) && $instance['wprrw_installs'] == 'on' ) :
+		echo '<p class="active-installs">'
+			. number_format( $installs, 0, '', ',' )
+            . '+ <span>'
+            . __( 'Active Installs', 'wppluginratings' )
+            . '</span></p>';
 	endif;
-	?>
 
-  	<?php
 
-    if (!empty($rating)) :
+    if ( !empty($rating) && $instance['wprrw_ratings'] == 'on' ) :
     	echo '<div class="plugin-ratings">';
-  			echo '<p class="total-rating">' . $rating . $ratingtext . '</p>';
+  			echo '<p class="total-rating">'
+                . $rating
+                . $ratingtext
+                . '</p>';
   		echo '</div><!-- end plugin-ratings -->';
   	endif;
-  	?>
 
-  	<?php 
-  	if ($stars == 'on') :
-      include( WPRRW_PATH . '/inc/star-rating.php');
+    if ( !empty($fivestars[5]) && $instance['wprrw_fivestars'] == 'on' ) :
+  	    echo '<p class="5stars">' . ucwords($slug) . ' has ' . $fivestars[5] . ' 5-star reviews.</p>';
     endif;
-    ?>
 
-    <?php 
+  	if ( $stars == 'on' )
+      include( WPRRW_PATH . '/views/star-rating.php' );
+
     if ( $instance['wprrw_download'] == 'on' ) {
-	    echo '<a href="' . $var['download'] . '" class="download_link"><span class="dashicons dashicons-download"></span>';
-      	echo sprintf(__('Download "%1$s" here', 'wppluginratings'), $var['name']);
-      	echo '</a>';
+        echo '<a href="'
+            . $var['download']
+            . '" class="download_link"><span class="dashicons dashicons-download"></span>';
+
+        echo sprintf(__('Download "%1$s" here', 'wppluginratings'), $var['name']);
+
+        echo '</a>';
     }
 
-    if ( $instance['wprrw_translate'] == 'on') {
-	    echo '<a href="https://translate.wordpress.org/projects/wp-plugins/' . $var['slug'] . '" target="_blank" class="translate"><span class="dashicons dashicons-translation"></span> ' . __('Contribute by Translating this plugin', 'wppluginratings') . '</a>';
+    if ( $instance['wprrw_translate'] == 'on' ) {
+        echo '<a href="https://translate.wordpress.org/projects/wp-plugins/'
+            . $var['slug']
+            . '" target="_blank" class="translate"><span class="dashicons dashicons-translation"></span> '
+            . __('Contribute by Translating this plugin', 'wppluginratings')
+            . '</a>';
     }
 
-    if ( $instance['wprrw_badge'] == 'on') {
-      echo '<a href="' . $var['repolink'] . '" target="_blank" class="badge">
-      <img src="https://khromov.github.io/wordpress-badge-generator/images/wp-button-small.png"/>
-      </a>';
+    if ( $instance['wprrw_badge'] == 'on' ) {
+        echo '<a href="'
+            . $var['repolink']
+            . '" target="_blank" class="badge"><img src="https://khromov.github.io/wordpress-badge-generator/images/wp-button-small.png"/>
+            </a>';
     }
-    
-	?>
-
-<?php 

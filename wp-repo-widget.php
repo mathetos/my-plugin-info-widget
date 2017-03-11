@@ -46,7 +46,9 @@ class WP_Ratings_Widget extends WP_Widget {
    **/
 
 	function widget( $args, $instance ) {
-		
+
+	    wp_enqueue_style( 'dashicons' );
+
 		extract( $args, EXTR_SKIP );
 		
 		echo $before_widget;
@@ -131,6 +133,17 @@ class WP_Ratings_Widget extends WP_Widget {
 					e.preventDefault();
 				} );
 
+                if( $("input.checkbox.reviewsenable").is(':checked')) {
+                    $("ul.wprrw_reviews_settings").show();
+                } else {
+                    $("ul.wprrw_reviews_settings").hide();
+                }
+
+                if( $("input.checkbox.customize").is(':checked')) {
+                    $("ul.wprrw_stats_settings").show();
+                } else {
+                    $("ul.wprrw_stats_settings").hide();
+                }
 
 				$('.wprrw-tabs-menu a.stats-click').click(function( event ) { 
 							 			
@@ -140,7 +153,6 @@ class WP_Ratings_Widget extends WP_Widget {
 				  $('.wprrw-tabs-menu a.stats-click').addClass('highlight');
 				});
 
-
 				$('.wprrw-tabs-menu a.reviews-click').click(function( event) {
 		 			
 				  $('.show-stats').removeClass('active'); 
@@ -148,7 +160,23 @@ class WP_Ratings_Widget extends WP_Widget {
 				  $('.show-reviews').addClass('active');
 				  $('.wprrw-tabs-menu a.reviews-click').addClass('highlight');
 				});
-			});
+
+                $('.checkbox.customize').click(function() {
+                    if( $(this).is(':checked')) {
+                        $("ul.wprrw_stats_settings").slideDown("slow");
+                    } else {
+                        $("ul.wprrw_stats_settings").slideUp("slow");
+                    }
+                });
+
+                $('.checkbox.reviewsenable').click(function() {
+                    if( $(this).is(':checked')) {
+                        $("ul.wprrw_reviews_settings").slideDown("slow");
+                    } else {
+                        $("ul.wprrw_reviews_settings").slideUp("slow");
+                    }
+                });
+            });
 		</script>
 
 		<!-- Start Widget Settings HTML Output -->
@@ -166,31 +194,31 @@ class WP_Ratings_Widget extends WP_Widget {
 					<!-- Checkbox to Enable Widget Reviews -->
 					<input class="checkbox customize" type="checkbox" <?php checked( $instance[ 'wprrw_customize' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_customize' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_customize' ); ?>" />
 					<label for="<?php echo $this->get_field_id( 'wprrw_customize' ); ?>"><?php echo __('Enable Plugin Stats?', 'wppluginratings' ); ?></label>
-					<a class="hint--left" data-hint="<?php echo __('By default, WP Repo Plugin Widget will output &#10;all the data based only on your plugin slug. &#10;If you\'d like to customize which elements &#10;are shown for this widget click here:', 'wppluginratings'); ?>">
+					<a class="hint--top  hint--medium" data-hint="<?php echo __('By default, WP Repo Plugin Widget will output &#10;all the data based only on your plugin slug. &#10;If you\'d like to customize which elements &#10;are shown for this widget click here:', 'wppluginratings'); ?>">
 					<span class="dashicons dashicons-info"></span></a>
 					
 					<!-- Settings to Customize Widget Stats -->
-					<ul>
+					<ul class="wprrw_stats_settings">
 						<li>
 							<input class="checkbox" type="checkbox" <?php checked( $instance[ 'wprrw_installs' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_installs' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_installs' ); ?>" />
 		    				<label for="<?php echo $this->get_field_id( 'wprrw_installs' ); ?>"><?php echo __('Enable Active Installs', 'wppluginratings' ); ?></label>
 						</li>
 						<li>
 							<input class="checkbox ratings" type="checkbox" <?php checked( $instance[ 'wprrw_ratings' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_ratings' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_ratings' ); ?>" />
-		    				<label for="<?php echo $this->get_field_id( 'wprrw_ratings' ); ?>"><?php echo __('Enable Overall Rating Score', 'wppluginratings' ); ?></label><a class=" hint--left" data-hint="<?php echo __('e.g. Rated 4.8 out of 5 stars from 25 total ratings.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
+		    				<label for="<?php echo $this->get_field_id( 'wprrw_ratings' ); ?>"><?php echo __('Enable Overall Rating Score', 'wppluginratings' ); ?></label><a class=" hint--top  hint--medium" data-hint="<?php echo __('e.g. Rated 4.8 out of 5 stars from 25 total ratings.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
 						</li>
 						<li>
 							<input class="checkbox stars" type="checkbox" <?php checked( $instance[ 'wprrw_stars' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_stars' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_stars' ); ?>" />
 		    				<label for="<?php echo $this->get_field_id( 'wprrw_stars' ); ?>"><?php echo __('Enable Stars', 'wppluginratings' ); ?></label>
-								<a class=" hint--left" data-hint="<?php echo __('Display stars to represent the total rating for your plugin just like on WP.org.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
+								<a class=" hint--top  hint--medium" data-hint="<?php echo __('Display stars to represent the total rating for your plugin just like on WP.org.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
 						</li>
 						<li>
 							<input class="checkbox fivestars" type="checkbox" <?php checked( $instance[ 'wprrw_fivestars' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_fivestars' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_fivestars' ); ?>" />
-		    				<label for="<?php echo $this->get_field_id( 'wprrw_fivestars' ); ?>"><?php echo __('Show number of 5 star ratings', 'wppluginratings' ); ?></label><a class=" hint--left" data-hint="<?php echo __('e.g. 10 five-star reviews out of 11 total.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
+		    				<label for="<?php echo $this->get_field_id( 'wprrw_fivestars' ); ?>"><?php echo __('Show number of 5 star ratings', 'wppluginratings' ); ?></label><a class=" hint--top  hint--medium" data-hint="<?php echo __('e.g. 10 five-star reviews out of 11 total.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
 						</li>
 						<li>
 							<input class="checkbox download" type="checkbox" <?php checked( $instance[ 'wprrw_download' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_download' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_download' ); ?>" />
-		    				<label for="<?php echo $this->get_field_id( 'wprrw_download' ); ?>"><?php echo __('Display a direct link to your plugins download file', 'wppluginratings' ); ?></label><a class=" hint--left" data-hint="<?php echo __('Visitors will be able to download a zip file &#10;of your plugin directly from your website &#10;rather than going to WP.org.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
+		    				<label for="<?php echo $this->get_field_id( 'wprrw_download' ); ?>"><?php echo __('Display a direct link to your plugins download file', 'wppluginratings' ); ?></label><a class=" hint--top  hint--medium" data-hint="<?php echo __('Visitors will be able to download a zip file &#10;of your plugin directly from your website &#10;rather than going to WP.org.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
 						</li>
 						<li>
 							<input class="checkbox translate" type="checkbox" <?php checked( $instance[ 'wprrw_translate' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_translate' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_translate' ); ?>" />
@@ -198,7 +226,7 @@ class WP_Ratings_Widget extends WP_Widget {
 						</li>
 						<li>
 							<input class="checkbox badge" type="checkbox" <?php checked( $instance[ 'wprrw_badge' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_badge' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_badge' ); ?>" />
-		    				<label for="<?php echo $this->get_field_id( 'wprrw_badge' ); ?>"><?php echo __('Display a "Hosted on WordPress.org" badge that links to your plugin page.', 'wppluginratings' ); ?></label><a class=" hint--left" data-hint="<?php echo __('Special thanks to Stanislav Kromov for his &#10;WordPress Badge generator (Click to visit it).', 'wppluginratings'); ?>" href="https://khromov.github.io/wordpress-badge-generator/" target="_blank"><span class="dashicons dashicons-info"></span></a>
+		    				<label for="<?php echo $this->get_field_id( 'wprrw_badge' ); ?>"><?php echo __('Display a "Hosted on WordPress.org" badge that links to your plugin page.', 'wppluginratings' ); ?></label><a class=" hint--top  hint--medium" data-hint="<?php echo __('Special thanks to Stanislav Kromov for his &#10;WordPress Badge generator (Click to visit it).', 'wppluginratings'); ?>" href="https://khromov.github.io/wordpress-badge-generator/" target="_blank"><span class="dashicons dashicons-info"></span></a>
 						</li>
 					</ul>
 				</div><!-- end .wprrw-tab-content -->
@@ -211,37 +239,20 @@ class WP_Ratings_Widget extends WP_Widget {
 
 					<label for="<?php echo $this->get_field_id( 'wprrw_reviewsenable' ); ?>">
 						<?php echo __('Enable Reviews?', 'wppluginratings' ); ?></label>
-					<a class=" hint--left" data-hint="<?php echo __('By default the first 3 5-star reviews &#10;will be output to the page. You can customize &#10;some elements of that here.', 'wppluginratings'); ?>" target="_blank">
+					<a class=" hint--top  hint--medium" data-hint="<?php echo __('By default the first 3 5-star reviews &#10;will be output to the page. You can customize &#10;some elements of that here.', 'wppluginratings'); ?>" target="_blank">
 					<span class="dashicons dashicons-info"></span></a>
 					
 					<!-- Settings to Customize Widget Reviews -->
-					<ul>
+					<ul class="wprrw_reviews_settings">
 						<li>
-							<label for="<?php echo $this->get_field_id( 'wprrw_reviewnum' ); ?>"><strong><?php _e( 'Number of Reviews to display' ); ?></strong>
-						  	<input class="widefat" id="<?php echo $this->get_field_id( 'wprrw_reviewnum' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_reviewnum' ); ?>" type="number" value="<?php echo esc_attr( $reviewnum ); ?>" /></label>
+							<label for="<?php echo $this->get_field_id( 'wprrw_reviewnum' ); ?>"><strong><?php _e( 'Number of Reviews to display' ); ?></strong><br />
+						  	<input  id="<?php echo $this->get_field_id( 'wprrw_reviewnum' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_reviewnum' ); ?>" type="number" value="<?php echo esc_attr( $reviewnum ); ?>" /></label>
 						</li>
-				
-						<li>
-							<label for="<?php echo $this->get_field_name( 'wprrw_reviewsstyle' ); ?>"><strong><?php echo __('Chooose review presentation style', 'wppluginratings' ); ?></strong></label><br />
-							<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprrw_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_reviewsstyle' ); ?>" value="Basic" <?php echo $instance['wprrw_reviewsstyle'] == 'Basic' ? 'checked="checked"' : ''; ?> /><?php echo __('Plain text presentation', 'wppluginratings'); ?><br />
-							<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprrw_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_reviewsstyle' ); ?>" value="Fade" <?php echo $instance['wprrw_reviewsstyle'] == 'Fade' ? 'checked="checked"' : ''; ?> /><?php echo __('Fade 1 review at a time', 'wppluginratings'); ?><br />
-							<input class="radio style" type="radio" id="<?php echo $this->get_field_id( 'wprrw_reviewsstyle' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_reviewsstyle' ); ?>" value="Slider" <?php echo $instance['wprrw_reviewsstyle'] == 'Slider' ? 'checked="checked"' : ''; ?> /><?php echo __('Slider with navigation', 'wppluginratings'); ?><br />
-						</li>
-						
-						<li>
-							<input class="checkbox authorinfo" type="checkbox" <?php checked( $instance[ 'wprrw_authorinfo' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_authorinfo' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_authorinfo' ); ?>" />
-		    				<label for="<?php echo $this->get_field_id( 'wprrw_authorinfo' ); ?>"><?php echo __('Show author info for each review?', 'wppluginratings' ); ?></label>
-						</li>
-						
-						<li>
-							<input class="checkbox authoravatar" type="checkbox" <?php checked( $instance[ 'wprrw_authoravatar' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_authoravatar' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_authoravatar' ); ?>" />
-		    				<label for="<?php echo $this->get_field_id( 'wprrw_authoravatar' ); ?>"><?php echo __('Show author avatar for each review', 'wppluginratings' ); ?></label>
-						</li>
-						
-						<li>
-							<input class="checkbox reviewlink" type="checkbox" <?php checked( $instance[ 'wprrw_reviewlink' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_reviewlink' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_reviewlink' ); ?>" />
-		    				<label for="<?php echo $this->get_field_id( 'wprrw_reviewlink' ); ?>"><?php echo __('Show a link to each review.', 'wppluginratings' ); ?></label>
-						</li>
+
+                        <li>
+                            <input class="checkbox autoplay" type="checkbox" <?php checked( $instance[ 'wprrw_autoplay' ], 'on' ); ?> id="<?php echo $this->get_field_id( 'wprrw_autoplay' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_autoplay' ); ?>" />
+                            <label for="<?php echo $this->get_field_id( 'wprrw_autoplay' ); ?>"><?php echo __('Enable Autoplay?', 'wppluginratings' ); ?></label><a class=" hint--top  hint--medium" data-hint="<?php echo __('Check this box to enable autoplay of the Reviews Carousel.', 'wppluginratings'); ?>" ><span class="dashicons dashicons-info"></span></a>
+                        </li>
 					</ul>
 				</div><!-- end .wprrw-tab-content -->
 			</div><!-- end #wprrw_tabs_container -->
@@ -278,13 +289,7 @@ class WP_Ratings_Widget extends WP_Widget {
 
 		$instance['wprrw_reviewnum'] = ( ! empty( $new_instance['wprrw_reviewnum'] ) ) ?  $new_instance['wprrw_reviewnum']  : '';
 
-		$instance['wprrw_reviewsstyle'] = ( ! checked( $new_instance['wprrw_reviewsstyle'] ) ) ?  $new_instance['wprrw_reviewsstyle']  : '';
-
-		$instance['wprrw_authorinfo'] = ( ! checked( $new_instance['wprrw_authorinfo'] ) ) ?  $new_instance['wprrw_authorinfo']  : '';
-
-		$instance['wprrw_authoravatar'] = ( ! checked( $new_instance['wprrw_authoravatar'] ) ) ?  $new_instance['wprrw_authoravatar']  : '';
-
-		$instance['wprrw_reviewlink'] = ( ! checked( $new_instance['wprrw_reviewlink'] ) ) ?  $new_instance['wprrw_reviewlink']  : '';
+        $instance['wprrw_autoplay'] = ( ! checked( $new_instance['wprrw_autoplay'] ) ) ?  $new_instance['wprrw_autoplay']  : '';
 
 		return $instance;
 
@@ -292,15 +297,7 @@ class WP_Ratings_Widget extends WP_Widget {
 
 	public function wprrw_template_loader() {
 
-		//Loads the default template
-		// Looks in Parent, then Child theme directory, then finally plugin
-		// if (file_exists( get_template_directory() . '/wprrw/custom-view.php')) {
-		// 	$template = get_template_directory() . '/wprrw/custom-view.php';
-		// } elseif(file_exists( get_stylesheet_directory() . '/wprrw/custom-view.php')) {
-		// 	$template = get_stylesheet_directory() . '/wprrw/custom-view.php';
-		// } else {
-			$template = WPRRW_PATH . '/views/default-view.php';
-		//}
+        $template = WPRRW_PATH . '/views/default-view.php';
 
 		return apply_filters('wprrw_template', $template);
 	}
@@ -329,6 +326,7 @@ class WP_Ratings_Widget extends WP_Widget {
 					'active_installs' => true,
 					'sections' => false,
 					'reviews' => true,
+                    'ratings' => true,
 					'homepage' => false,
 					'added' => false,
 					'last_updated' => false,
@@ -370,14 +368,15 @@ class WP_Ratings_Widget extends WP_Widget {
 		}
 
 		$var = array(
-		'slug' => $this->get_the_slug($instance),
-		  'rating' => $call_api->rating,
-		  'installs' => $call_api->active_installs,
-		  'fivestars' => $call_api->ratings[5],
-		  'numratings' => $call_api->num_ratings,
-		  'repolink' => 'https://wordpress.org/plugins/' . $slug,
-		  'download' => $call_api->download_link,
-		  'name' => $call_api->name
+            'slug' => $this->get_the_slug($instance),
+            'rating' => $call_api->rating,
+            'ratings' => $call_api->ratings,
+            'installs' => $call_api->active_installs,
+            'fivestars' => $call_api->ratings[5],
+            'numratings' => $call_api->num_ratings,
+            'repolink' => 'https://wordpress.org/plugins/' . $slug,
+            'download' => $call_api->download_link,
+            'name' => $call_api->name
 		  );
 
 		return $var;
@@ -410,75 +409,82 @@ class WP_Ratings_Widget extends WP_Widget {
 	 *	@var $instance
 	 **/
 	
-	public function wprrw_split_reviews($instance) {
-	  
-	  // Create DOM from reviews output string
-	  $wprepo = new WP_Ratings_Widget;
-	  $xpath = $wprepo->wprrw_get_xpath($instance);
+    public function wprrw_split_reviews($instance) {
 
-	  // Target the class of the reviews element
-	  $reviewclass = './/div[contains(concat(" ", normalize-space(@class), " "), " review ")]';
+        // Create DOM from reviews output string
+        $wprepo = new WP_Ratings_Widget;
+        $xpath = $wprepo->wprrw_get_xpath($instance);
 
-	  // Loop through all review elements
-	  // and output the markup accordingly
-	  foreach ($xpath->evaluate($reviewclass) as $div) {
+        // Target the class of the reviews element
+        $reviewclass = './/div[contains(concat(" ", normalize-space(@class), " "), " review ")]';
 
-	  	$i = 0;
+        // Loop through all review elements
+        // and output the markup accordingly
+        $i = 0;
 
-		// Save each review as an XML instance
-		$raw_review = $div->ownerDocument->saveXML( $div );
+        foreach ( $xpath->evaluate($reviewclass) as $div ) {
 
-		// Grab all "a" elements from each review
-		$linkhrefs = array();
-		$linkTags  = $div->getElementsByTagName( 'a' );
+            // Save each review as an XML instance
+            $raw_review = $div->ownerDocument->saveXML( $div );
 
-		// Grab the links from each "a" element
-		// and define the Author according to the
-		// text inside the "a" element
-		foreach ( $linkTags as $tag ) {
-			$linkhrefs[] = $tag->getAttribute( 'href' );
-			$author = trim( strip_tags( $tag->ownerDocument->saveXML( $tag ) ));
-		}
+            // Grab all "a" elements from each review
+            $linkhrefs = array();
+            $linkTags  = $div->getElementsByTagName( 'a' );
 
-		// If a reviewer added any links into their
-		// review, it will return as their author link
-		// So we'll grab their author url instead and
-		// trim that to be their name
-		if (strpos($author,'http') !== false) {
-		  $profile = str_replace("//profiles.wordpress.org/", "", $linkhrefs[0]);
-		  $author = $profile;
-		} else {
-		  $author = $author;
-		}
+            // Grab the links from each "a" element
+            // and define the Author according to the
+            // text inside the "a" element
+            foreach ( $linkTags as $tag ) {
+                $linkhrefs[] = $tag->getAttribute( 'href' );
+                $author = trim( strip_tags( $tag->ownerDocument->saveXML( $tag ) ));
+            }
 
-		// Grab and define each element of the review
-		$gettitle = $this->wprrw_getElementsByClass($div, 'div', 'review-title-section');
-		$title = substr($gettitle[0]->textContent, 0, -13);
+            // If a reviewer added any links into their
+            // review, it will return as their author link
+            // So we'll grab their author url instead and
+            // trim that to be their name
+            if ( strpos( $author,'http' ) !== false ) {
 
-		$getstars = $this->wprrw_getElementsByClass($div, 'div', 'star-rating');
-		$stars = $getstars[0]->textContent;
+                $profile = str_replace("//profiles.wordpress.org/", "", $linkhrefs[0]);
 
-		$getrevdate = $this->wprrw_getElementsByClass($div, 'span', 'review-date');
-		$revdate = $getrevdate[0]->textContent;
+                $author = $profile;
+            } else {
+                $author = $author;
+            }
 
-		$getcontent = $this->wprrw_getElementsByClass($div, 'div', 'review-body');
-		$content = $getcontent[0]->textContent;
-		$trimmedcontent = wp_trim_words($content, 50);
+            // Grab and define each element of the review
+            $gettitle = $this->wprrw_getElementsByClass($div, 'div', 'review-title-section');
+            $title = substr($gettitle[0]->textContent, 0, -13);
 
-		$starnum = substr($stars, 0, -9);
-		$i = 0;
+            $getstars = $this->wprrw_getElementsByClass($div, 'div', 'star-rating');
+            $stars = $getstars[0]->textContent;
 
-		if ( $starnum >= 4 ) {
-			include(WPRRW_PATH . 'views/default-reviews.php');
-		}
-		// For testing you can always echo $raw_review 
-		// to see the original output that the plugins_api returns
+            $getrevdate = $this->wprrw_getElementsByClass($div, 'span', 'review-date');
+            $revdate = $getrevdate[0]->textContent;
 
-		//echo $raw_review;
+            $getcontent = $this->wprrw_getElementsByClass($div, 'div', 'review-body');
+            $content = $getcontent[0]->textContent;
+            $trimmedcontent = wp_trim_words($content, 50);
 
-		}
-		
-	}
+            $starnum = substr($stars, 0, -9);
+
+            //Include our Reviews Template
+            if ( $starnum >= 4 ) {
+                include(WPRRW_PATH . 'views/default-reviews.php');
+            }
+
+            // Get number of reviews to show and break
+            $num = $instance['wprrw_reviewnum'];
+            if (++$i == $num) break;
+
+            // For testing you can always echo $raw_review
+            // to see the original output that the plugins_api returns
+
+            //echo $raw_review;
+
+        }
+
+    }
 
 
 	/** 
