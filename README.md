@@ -16,8 +16,9 @@ You can currently see it live [here](http://www.mattcromwell.com/products/foogal
 ## Screenshots
 **The Widget Settings**
 
-![Backend Preview](assets/backend-preview.jpg)
+![Widget Preview Stats Tab](assets/backend-preview-stats-tab.jpg)
 
+![Widget Preview Stats Tab](assets/backend-preview-reviews-tab.jpg)
 
 **The Frontend**
 
