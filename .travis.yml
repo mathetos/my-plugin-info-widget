@@ -28,6 +28,8 @@ matrix:
 env:
   - WP_VERSION=master WP_MULTISITE=1
 
+script: phpunit test.php
+
 # Before install, failures in this section will result in build status 'errored'
 before_install:
   - WP_CORE_DIR=/tmp/wordpress/
