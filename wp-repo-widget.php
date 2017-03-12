@@ -103,7 +103,8 @@ class WP_Ratings_Widget extends WP_Widget {
 			'wprrw_reviewsstyle'	=> 'Basic',
 			'wprrw_authorinfo'		=> 'on',
 			'wprrw_authoravatar'	=> 'on',
-			'wprrw_reviewlink'		=> 'on'
+			'wprrw_reviewlink'		=> 'on',
+            'widget_id'             => $this->id
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -126,54 +127,56 @@ class WP_Ratings_Widget extends WP_Widget {
 			 	<input class="widefat" id="<?php echo $this->get_field_id( 'wprrw_slug' ); ?>" name="<?php echo $this->get_field_name( 'wprrw_slug' ); ?>" type="text" value="<?php echo esc_attr( $slug ); ?>" />
 			</label>
 		</p>
+        
+        <?php $widgetid = $instance['widget_id']; ?>
 
 		<script>
 		 	jQuery(document).ready( function( $ ) {
-				$( 'a[href="#"]' ).click( function(e) {
+				$( 'div[id*="<?php echo $widgetid; ?>"] a[href="#"]' ).click( function(e) {
 					e.preventDefault();
 				} );
 
-                if( $("input.checkbox.reviewsenable").is(':checked')) {
-                    $("ul.wprrw_reviews_settings").show();
+                if( $('div[id*="<?php echo $widgetid; ?>"] input.checkbox.reviewsenable').is(':checked')) {
+                    $('div[id*="<?php echo $widgetid; ?>"] ul.wprrw_reviews_settings').show();
                 } else {
-                    $("ul.wprrw_reviews_settings").hide();
+                    $('div[id*="<?php echo $widgetid; ?>"] ul.wprrw_reviews_settings').hide();
                 }
 
-                if( $("input.checkbox.customize").is(':checked')) {
-                    $("ul.wprrw_stats_settings").show();
+                if( $('div[id*="<?php echo $widgetid; ?>"] input.checkbox.customize').is(':checked')) {
+                    $('div[id*="<?php echo $widgetid; ?>"] ul.wprrw_stats_settings').show();
                 } else {
-                    $("ul.wprrw_stats_settings").hide();
+                    $('div[id*="<?php echo $widgetid; ?>"] ul.wprrw_stats_settings').hide();
                 }
 
-				$('.wprrw-tabs-menu a.stats-click').click(function( event ) { 
+				$('div[id*="<?php echo $widgetid; ?>"] .wprrw-tabs-menu a.stats-click').click(function( event ) {
 							 			
-				  $('.show-reviews').removeClass('active'); 
-				  $('.wprrw-tabs-menu a.reviews-click').removeClass('highlight');
-				  $('.show-stats').addClass('active'); 
-				  $('.wprrw-tabs-menu a.stats-click').addClass('highlight');
+				  $('div[id*="<?php echo $widgetid; ?>"] .show-reviews').removeClass('active');
+				  $('div[id*="<?php echo $widgetid; ?>"] .wprrw-tabs-menu a.reviews-click').removeClass('highlight');
+				  $('div[id*="<?php echo $widgetid; ?>"] .show-stats').addClass('active');
+				  $('div[id*="<?php echo $widgetid; ?>"] .wprrw-tabs-menu a.stats-click').addClass('highlight');
 				});
 
-				$('.wprrw-tabs-menu a.reviews-click').click(function( event) {
+				$('div[id*="<?php echo $widgetid; ?>"] .wprrw-tabs-menu a.reviews-click').click(function( event) {
 		 			
-				  $('.show-stats').removeClass('active'); 
-				  $('.wprrw-tabs-menu a.stats-click').removeClass('highlight');
-				  $('.show-reviews').addClass('active');
-				  $('.wprrw-tabs-menu a.reviews-click').addClass('highlight');
+				  $('div[id*="<?php echo $widgetid; ?>"] .show-stats').removeClass('active');
+				  $('div[id*="<?php echo $widgetid; ?>"] .wprrw-tabs-menu a.stats-click').removeClass('highlight');
+				  $('div[id*="<?php echo $widgetid; ?>"] .show-reviews').addClass('active');
+				  $('div[id*="<?php echo $widgetid; ?>"] .wprrw-tabs-menu a.reviews-click').addClass('highlight');
 				});
 
-                $('.checkbox.customize').click(function() {
+                $('div[id*="<?php echo $widgetid; ?>"] .checkbox.customize').click(function() {
                     if( $(this).is(':checked')) {
-                        $("ul.wprrw_stats_settings").slideDown("slow");
+                        $('div[id*="<?php echo $widgetid; ?>"] ul.wprrw_stats_settings').slideDown("slow");
                     } else {
-                        $("ul.wprrw_stats_settings").slideUp("slow");
+                        $('div[id*="<?php echo $widgetid; ?>"] ul.wprrw_stats_settings').slideUp("slow");
                     }
                 });
 
-                $('.checkbox.reviewsenable').click(function() {
+                $('div[id*="<?php echo $widgetid; ?>"] .checkbox.reviewsenable').click(function() {
                     if( $(this).is(':checked')) {
-                        $("ul.wprrw_reviews_settings").slideDown("slow");
+                        $('div[id*="<?php echo $widgetid; ?>"] ul.wprrw_reviews_settings').slideDown("slow");
                     } else {
-                        $("ul.wprrw_reviews_settings").slideUp("slow");
+                        $('div[id*="<?php echo $widgetid; ?>"] ul.wprrw_reviews_settings').slideUp("slow");
                     }
                 });
             });
@@ -393,7 +396,7 @@ class WP_Ratings_Widget extends WP_Widget {
 	
 	public function get_the_slug($instance) {
 		
-		// A helper funtion to get the plugin slug more easily
+		// A helper function to get the plugin slug more easily
 		$slug = $instance['wprrw_slug'];
 		$cleanslug = esc_attr($slug);
 		return $cleanslug;
