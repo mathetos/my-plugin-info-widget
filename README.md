@@ -1,4 +1,7 @@
 # WP Plugin Rating and Reviews Widget
+
+[![Travis](https://img.shields.io/travis/mathetos/my-plugin-info-widget.svg)]() [![Scrutinizer](https://img.shields.io/scrutinizer/g/mathetos/my-plugin-info-widget.svg)]()  [![GitHub stars](https://img.shields.io/github/stars/mathetos/my-plugin-info-widget.svg?style=social&label=Star)]() [![Twitter Follow](https://img.shields.io/twitter/follow/learnwithmattc.svg?style=social&label=Follow)]()
+
 Adds a widget and shortcode to display ratings and reviews about WordPress plugins directly from the WordPress.org Plugin Directory. Ideal for plugin authors to display on their websites.
 ---
 This WordPress plugin allows you to add a widget to your sidebar, designate a plugin "slug" from any plugin hosted on the WordPress Plugin Directory, and it will show relevant information about that plugin pulled directly from the WordPress Plugin Directory.
