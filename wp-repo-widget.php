@@ -26,8 +26,6 @@ class WP_Ratings_Widget extends WP_Widget {
 	 **/
 
 	function __construct() {
-	    
-	    //require_once( WPRRW_PATH . 'views/widget-template.php');
 
 	    $widget_ops = array( 'classname' => 'wp_ratings_widget', 'description' => 'WP Repo widget' );
 	    
@@ -56,19 +54,32 @@ class WP_Ratings_Widget extends WP_Widget {
 		global $slug;
 		$slug = esc_attr($instance['wprrw_slug']);
 
-		$call_api = $this->wprrw_callapi($slug='');
-
 		if ( isset( $instance[ 'wprrw_slug' ] ) ) {
 		  $slug = $instance[ 'wprrw_slug' ];
 		}
+        $cached = '<p>Yes, cached!</p>';
+
+        // Get any existing copy of our transient data.
+        if ( false === ( $cachedresults = get_transient( 'wp-plugin-repo-data-' . $slug ) ) ) {
+            // It wasn't there, so regenerate the data and save the transient.
+            //$cached = '<p>Nope, not cached</p>';
+
+            $cachedresults = $this->wprrw_callapi($slug);
+            set_transient( 'wp-plugin-repo-data-' . $slug, $cachedresults, 12 * HOUR_IN_SECONDS );
+
+        } else {
+
+            $cachedresults = get_transient( 'wp-plugin-repo-data-' . $slug );
+
+        }
 
 		//Check for Errors & Display the results
-		if ( is_wp_error( $call_api ) ) {
-				echo '<pre>' . print_r( $call_api->get_error_message(), true ) . '</pre>';
+		if ( is_wp_error( $cachedresults ) ) {
+				echo '<pre>' . print_r( $cachedresults->get_error_message(), true ) . '</pre>';
 
 		//** If no errors and no cached results, display the results based on a new API call **//
-		} else {
-
+        } else {
+            //echo $cached;
 			$template = self::wprrw_template_loader();
 
 			include($template);
@@ -530,6 +541,12 @@ class WP_Ratings_Widget extends WP_Widget {
 	 **/
 	
 	public function wprrw_get_xpath($instance) {
+
+        // Require plugin-install.php to query the Repo correctly.
+        if ( ! function_exists( 'plugins_api' ) ) {
+            require_once( ABSPATH . 'wp-admin/includes/plugin-install.php' );
+        }
+
 	  	$call_api = plugins_api( 'plugin_information',
 			array(
 			  	'slug' => $this->get_the_slug($instance),

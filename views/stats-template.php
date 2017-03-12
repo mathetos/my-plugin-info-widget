@@ -27,7 +27,7 @@
   	endif;
 
     if ( !empty($fivestars[5]) && $instance['wprrw_fivestars'] == 'on' ) :
-  	    echo '<p class="5stars">' . ucwords($slug) . ' has ' . $fivestars[5] . ' 5-star reviews.</p>';
+  	    echo '<p class="5stars">' . ucwords($plugin_name) . ' has ' . $fivestars[5] . ' 5-star reviews.</p>';
     endif;
 
   	if ( $stars == 'on' )

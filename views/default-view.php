@@ -31,6 +31,8 @@ if ( isset($var['slug']) )
 
     $installs = !empty( $var['installs'] ) ? $var['installs'] : '<p>This Plugin has no Active Installs</p>';
 
+    $plugin_name = !empty( $var['name'] ) ? $var['name'] : '';
+
     // Get the Plugin's ratings and total reviews
     $rating = !empty( $var['rating'] ) ? $var['rating']/100*5 : '';
 
